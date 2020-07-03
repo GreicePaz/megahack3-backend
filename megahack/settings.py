@@ -145,4 +145,4 @@ REST_FRAMEWORK = {
 }
 
 #Para utilizar o heroku
-#django_heroku.settings(locals())
+django_heroku.settings(locals())
