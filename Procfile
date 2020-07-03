@@ -1,1 +1,1 @@
-web: gunicorn megahack3-backend.ini
+web: gunicorn megahack.wsgi
