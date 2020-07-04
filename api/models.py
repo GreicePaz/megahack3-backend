@@ -15,6 +15,7 @@ class User(AbstractBaseUser):
 
 class Ong(models.Model):
     name            = models.CharField(max_length=50)
+    cnpj            = models.CharField(max_length=20)
     description     = models.TextField(null=True)
     cep             = models.CharField(max_length=10)
     state           = models.CharField(max_length=30)
