@@ -2,4 +2,4 @@
 *.sqlite3
 __pycache__
 .env
-*_initial.py
+000*
