@@ -33,6 +33,7 @@ class NeedProduct(models.Model):
     description     = models.TextField(null=True)
     id_product      = models.CharField(max_length=100)
     tags            = models.ManyToManyField('Tag')
+    ong             = models.ForeignKey(Ong, on_delete=models.CASCADE)
     active          = models.BooleanField(default=True)
     date_register   = models.DateTimeField(auto_now_add=True)
     class Meta:
@@ -44,6 +45,7 @@ class NeedBill(models.Model):
     expiration      = models.DateField()
     amount          = models.DecimalField(max_digits=10, decimal_places=2)
     tags            = models.ManyToManyField('Tag')
+    ong             = models.ForeignKey(Ong, on_delete=models.CASCADE)
     active          = models.BooleanField(default=True)
     date_register   = models.DateTimeField(auto_now_add=True)
     class Meta:
