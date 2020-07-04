@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinLengthValidator
 from django.contrib.auth.base_user import AbstractBaseUser
 
 class User(AbstractBaseUser):
@@ -15,7 +16,7 @@ class User(AbstractBaseUser):
 
 class Ong(models.Model):
     name            = models.CharField(max_length=50)
-    cnpj            = models.CharField(max_length=20)
+    cnpj            = models.CharField(max_length=20, validators=[MinLengthValidator(14)])
     description     = models.TextField(null=True)
     cep             = models.CharField(max_length=10)
     state           = models.CharField(max_length=30)
@@ -32,7 +33,6 @@ class NeedProduct(models.Model):
     name            = models.CharField(max_length=50)
     amount          = models.IntegerField(default=1)
     description     = models.TextField(null=True)
-    id_product      = models.CharField(max_length=100)
     tags            = models.ManyToManyField('Tag')
     ong             = models.ForeignKey(Ong, on_delete=models.CASCADE)
     active          = models.BooleanField(default=True)

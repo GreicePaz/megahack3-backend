@@ -138,7 +138,6 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (       
         'api.auth.CustomAuthentication',
     ),
-    'EXCEPTION_HANDLER': 'api.error.handle_api_exception',
     'UNAUTHENTICATED_USER': None
 }
 
