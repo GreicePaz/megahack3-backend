@@ -17,6 +17,9 @@ class OngAPI(APIView):
         cnpj        = request.POST.get('cnpj')
         cep         = request.POST.get('cep')
 
+        if not all([cnpj, cep]):
+            return Response({'success': False, 'detail':'Parâmetros insuficientes'}, status=status.HTTP_400_BAD_REQUEST)
+
         try:
             int(cep)
             int(cnpj)
