@@ -88,8 +88,6 @@ DATABASES = {
     'default': config('DATABASE_URL', cast=db_url),
 }
 
-DATABASES['default']['OPTIONS'] = {'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"'}
-
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 '''
