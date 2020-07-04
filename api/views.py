@@ -12,6 +12,7 @@ class HelloWord(APIView):
     def get(self, request):
         return Response(True, status=status.HTTP_200_OK)
 
+
 class OngAPI(APIView):
     def post(self, request):
         cnpj        = request.POST.get('cnpj')
@@ -56,6 +57,50 @@ class OngAPI(APIView):
             return Response({'success': False, 'detail':'Id ong não encontrada'}, status=status.HTTP_404_NOT_FOUND)
 
         serializer = OngModelSerializer(ong)
+
+        response = {'success': True, 'ong': serializer.data}
+
+        return Response(response)
+
+
+class NeedProductAPI(APIView):
+    def post(self, request):
+        pass
+
+    def get(self, request):
+        id_need = request.GET.get('id')
+
+        if not id_need:
+            return Response({'success': False, 'detail':'Parâmetros insuficientes'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            need = NeedProduct.objects.get(id=id_need)
+        except:
+            return Response({'success': False, 'detail':'Id necessidade não encontrado'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = NeedProductModelSerializer(need)
+
+        response = {'success': True, 'ong': serializer.data}
+
+        return Response(response)
+
+
+class NeedBillAPI(APIView):
+    def post(self, request):
+        pass
+
+    def get(self, request):
+        id_need = request.GET.get('id')
+
+        if not id_need:
+            return Response({'success': False, 'detail':'Parâmetros insuficientes'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            need = NeedBill.objects.get(id=id_need)
+        except:
+            return Response({'success': False, 'detail':'Id necessidade não encontrado'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = NeedBillModelSerializer(need)
 
         response = {'success': True, 'ong': serializer.data}
 
