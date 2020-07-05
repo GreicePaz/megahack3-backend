@@ -147,7 +147,8 @@ REST_FRAMEWORK = {
 django_heroku.settings(locals())
 
 CORS_ORIGIN_WHITELIST = (
-       '*'
+       'http://hacka3system.surge.sh',
+       'http://localhost:3000',
     )
 
 CORS_ALLOW_METHODS = (
