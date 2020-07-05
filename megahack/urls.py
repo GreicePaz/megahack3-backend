@@ -13,4 +13,5 @@ urlpatterns = [
     path('need/bill/<int:id>', NeedBillAPI.as_view()),
     path('tags/', TagAPI.as_view()),
     path('search', ProductsMeli.as_view()),
+    path('grantor', GrantorAPI.as_view()),   
 ]

@@ -244,3 +244,41 @@ class ProductsMeli(APIView):
         
         return Response(response)
 
+class GrantorAPI(APIView):
+    def post(self, request):
+        email = request.POST.get('email')
+
+        try:
+            email = Grantor.objects.get(email=email)
+        except:
+            email = None
+
+        if email != None:
+            return Response({'success': False, 'detail':'Doador já cadastrado'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        serializer = GrantorModelSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+
+            response = {'success': True, 'grantor': serializer.data}
+
+            return Response(response, status=status.HTTP_201_CREATED)
+        
+        return Response({'success': False, 'detail':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+    def get(self, request):
+        email = request.GET.get('email', None)
+
+        if email == None:
+            return Response({'success': False, 'detail':'Parâmetros insuficientes'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            grantor = Grantor.objects.get(email=email)
+        except:
+            return Response({'success': False, 'detail':'Doador não encontrado'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = GrantorModelSerializer(grantor)
+
+        response = {'success': True, 'grantor': serializer.data}
+
+        return Response(response)
