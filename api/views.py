@@ -80,7 +80,7 @@ class OngAPIList(APIView):
 		if search:
 			try:
 				ong = Ong.objects.filter(
-					Q(name__icontains=search) | Q(Q(state__icontains=search) | Q(city__icontains=search) | Q(address__icontains=search)) | Q(cause__name__icontains=search)
+					Q(name__icontains=search) | Q(Q(state__icontains=search) | Q(city__icontains=search) | Q(address__icontains=search)) | Q(cause__icontains=search)
 				)
 			except Exception as e:
 				return Response({'success': False, 'detail':'Ongs não encontradas', 'error': str(e)}, status=status.HTTP_404_NOT_FOUND)
