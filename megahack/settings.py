@@ -143,3 +143,26 @@ REST_FRAMEWORK = {
 
 #Para utilizar o heroku
 django_heroku.settings(locals())
+
+CORS_ORIGIN_WHITELIST = (
+       '*',
+    )
+
+CORS_ALLOW_METHODS = (
+        'GET',
+        'POST',
+        'PUT',
+        'PATCH',
+        'DELETE',
+        'OPTIONS'
+)
+
+CORS_ALLOW_HEADERS = (
+        'Access-Control-Allow-Origin',
+        'x-requested-with',
+        'content-type',
+        'accept',
+        'origin',
+        'authorization',
+        'x-csrftoken'
+)
