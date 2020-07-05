@@ -37,7 +37,7 @@ class Ong(models.Model):
     name            = models.CharField(max_length=50)
     logo            = models.CharField(max_length=1024, null=True)
     cnpj            = models.CharField(max_length=20, validators=[MinLengthValidator(14)])
-    cause           = models.ManyToManyField('Tag')
+    cause           = models.CharField(max_length=1024, null=True)
     description     = models.TextField(null=True)
     cep             = models.CharField(max_length=10)
     state           = models.CharField(max_length=30)

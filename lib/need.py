@@ -16,23 +16,16 @@ def insertProductsMeli(name, value, image, url):
 
     return obj.id
 
-def createGetTag(tag):
+def insertTag(tags):
     try:
-        tag = Tag.objects.get_or_create(nome=name)
+        tags = tags.split(",")
     except:
-        return False
+        pass
 
-    return tag
-
-def insertTag(tag, id, need_type):
-    if need_type == 'cause':
+    for tag in tags:
         try:
-            ong = Ong.objects.get(id=id)
+            t = Tag.objects.get(name=tag)
         except:
-            return False
+            t = Tag.objects.create(name=tag)
 
-        ong.tags.clear()
-        
-
-
-    
+    return True

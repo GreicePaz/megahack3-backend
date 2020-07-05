@@ -39,12 +39,9 @@ class OngAPI(APIView):
 			return Response({'success': False, 'detail':'Ong já cadastrada'}, status=status.HTTP_400_BAD_REQUEST)
 			
 		try:
-			tag, _ = Tag.objects.get_or_create(nome=cause)
+			tags = insertTag(cause)
 		except:
-			tag = None
-
-		#return Response(request.data)
-		#request.data['cause'].update(tag)
+			tags = False
 		
 		serializer = OngModelSerializer(data=request.data)
 		if serializer.is_valid():
