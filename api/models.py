@@ -15,7 +15,7 @@ class User(AbstractBaseUser):
     
 
 class Ong(models.Model):
-    
+
     SANTANDER       = 'santander'
     NUBANK          = 'nubank'
     BRADESCO        = 'bradesco'
@@ -37,7 +37,7 @@ class Ong(models.Model):
     name            = models.CharField(max_length=50)
     logo            = models.CharField(max_length=1024, null=True)
     cnpj            = models.CharField(max_length=20, validators=[MinLengthValidator(14)])
-    cause           = models.ForeignKey('Tag', on_delete=models.SET_NULL, null=True)
+    cause           = models.ManyToManyField('Tag')
     description     = models.TextField(null=True)
     cep             = models.CharField(max_length=10)
     state           = models.CharField(max_length=30)
@@ -75,7 +75,6 @@ class NeedProduct(models.Model):
     name            = models.CharField(max_length=50)
     amount          = models.IntegerField(default=1)
     description     = models.TextField(null=True)
-    tags            = models.ManyToManyField('Tag')
     product_meli    = models.ForeignKey(ProductsMeli, on_delete=models.CASCADE)
     ong             = models.ForeignKey(Ong, on_delete=models.CASCADE)
     active          = models.BooleanField(default=True)
@@ -90,7 +89,6 @@ class NeedBill(models.Model):
     expiration      = models.DateField()
     amount          = models.DecimalField(max_digits=10, decimal_places=2)
     image_pay       = models.CharField(max_length=1024)
-    tags            = models.ManyToManyField('Tag')
     ong             = models.ForeignKey(Ong, on_delete=models.CASCADE)
     active          = models.BooleanField(default=True)
     date_register   = models.DateTimeField(auto_now_add=True)
@@ -110,7 +108,6 @@ class NeedVoluntary(models.Model):
     role            = models.CharField(max_length=50)
     description     = models.TextField(null=True)
     form            = models.CharField(max_length=10, default=ONLINE)
-    tags            = models.ManyToManyField('Tag')
     ong             = models.ForeignKey(Ong, on_delete=models.CASCADE)
     active          = models.BooleanField(default=True)
     date_register   = models.DateTimeField(auto_now_add=True)
@@ -143,9 +140,8 @@ class ContributionAmount(models.Model):
 
 
 class ContributionProducts(models.Model):
-    need        = models.ForeignKey(NeedProduct, on_delete=models.CASCADE)
-    amount      = models.IntegerField()
+    need        = models.ForeignKey(NeedProduct, on_delete=models.CASCADE, null=True)
     purchase_id = models.CharField(max_length=1024)
-    grantor     = models.ForeignKey(Grantor, on_delete=models.CASCADE)
+    grantor     = models.ForeignKey(Grantor, on_delete=models.CASCADE, null=True)
     class Meta:
         db_table = 'contributions_product'
