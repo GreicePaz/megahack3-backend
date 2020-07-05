@@ -103,10 +103,10 @@ class OngAPIList(APIView):
             ong['need_bills']       = bills
             ong['tags']             = tags
 
-        if not type(ong) == list:
-            ong = [ong]
+        if not type(ongs) == list:
+            ongs = [ongs]
 
-        response = {'success': True, 'ongs': ong if ong else []}
+        response = {'success': True, 'ongs': ongs if ongs else []}
 
         return Response(response)
 

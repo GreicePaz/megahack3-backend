@@ -1,5 +1,7 @@
 from api.models import *
 
+from django.db import transaction
+
 
 def insertProductsMeli(name, value, image, url):
     try:
@@ -14,5 +16,10 @@ def insertProductsMeli(name, value, image, url):
 
     return obj.id
 
-def insertTags(tag, need, id_need):
-    pass
+def insertTags(tag, need, need_type):
+    try:
+        tag = Tag.objects.get_or_create(nome=name)
+    except:
+        return False
+
+    
