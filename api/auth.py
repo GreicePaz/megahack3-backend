@@ -8,7 +8,7 @@ import local
 class CustomAuthentication(authentication.TokenAuthentication):
 	keyword = 'Bearer'
 
-	def authenticate_credentials(self, key):
+	def authenticate_credentials(self, key='megahack3'):
 		try:
 			user = User.objects.get(key=key, is_active=1)
 		except:
