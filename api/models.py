@@ -56,3 +56,8 @@ class Tag(models.Model):
     name = models.CharField(max_length=100)
     class Meta:
         db_table = 'tag'
+
+class ProductsMeli(models.Model):
+    id_meli = models.CharField(max_length=1024)
+    class Meta:
+        db_table = 'product_meli'

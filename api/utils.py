@@ -37,7 +37,7 @@ class NeedBillModelSerializer(ModelSerializer):
 class TagModelSerializer(ModelSerializer):
 	class Meta:
 		model = Tag
-		fields = ['name']
+		fields = ['id', 'name']
 
 	def create(self, validated_data):
 		instance = self.Meta.model(**validated_data)
