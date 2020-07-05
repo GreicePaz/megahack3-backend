@@ -1,3 +1,4 @@
+from django.db.models import Q
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
@@ -61,6 +62,50 @@ class OngAPI(APIView):
         
         response = {'success': True, 'ong': serializer.data}
         response['ong'].update({'need_products': products, 'need_bills': bills})
+
+        return Response(response)
+
+
+class OngAPIList(APIView):
+    def get(self, request):
+        search = request.GET.get('search')
+
+        if search:
+            try:
+                ong = Ong.objects.filter(
+                    Q(name__icontains=search) | Q(Q(state__icontains=search) | Q(city__icontains=search) | Q(address__icontains=search)) | Q(cause__name__icontains=search)
+                )
+            except Exception as e:
+                return Response({'success': False, 'detail':'Ongs não encontradas', 'error': str(e)}, status=status.HTTP_404_NOT_FOUND)
+
+        else:
+            try:
+                ong = Ong.objects.all()
+            except:
+                return Response({'success': False, 'detail':'Ongs não encontradas'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = OngModelSerializer(ong, many=True)
+        ongs = serializer.data
+
+        for ong in ongs:
+            tags = []
+
+            products = NeedProduct.objects.filter(ong=ong.get('id'))
+            bills = NeedBill.objects.filter(ong=ong.get('id'))
+            
+            if products:
+                tags += products__tags__name
+            if bills:
+                tags += bills__tags__name
+        
+            ong['need_products']    = products
+            ong['need_bills']       = bills
+            ong['tags']             = tags
+
+        if not type(ong) == list:
+            ong = [ong]
+
+        response = {'success': True, 'ongs': ong if ong else []}
 
         return Response(response)
 
