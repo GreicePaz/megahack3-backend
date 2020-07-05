@@ -17,8 +17,8 @@ class HelloWord(APIView):
 
 class OngAPI(APIView):
 	def post(self, request):
-		cnpj        = request.POST.get('cnpj')
-		cep         = request.POST.get('cep')
+		cnpj        = request.POST.get('cnpj', '01584325478962')
+		cep         = request.POST.get('cep', '92245793')
 		cause       = request.POST.get('cause')
 
 		if not all([cnpj, cep]):
