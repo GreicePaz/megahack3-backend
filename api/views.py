@@ -7,6 +7,7 @@ import json
 
 from api.models import *
 from api.utils import *
+from lib.need import *
 import local
 
 class HelloWord(APIView):
@@ -112,7 +113,30 @@ class OngAPIList(APIView):
 
 class NeedProductAPI(APIView):
     def post(self, request):
-        pass
+        product_meli = request.POST.get('product_meli', None)
+        
+        if product_meli == None:
+            return Response({'success': False, 'detail':'Parâmetros insuficientes'}, status=status.HTTP_400_BAD_REQUEST)
+
+        meli = json.loads(product_meli)
+
+        id_meli = insertProductsMeli(meli.get('name'), meli.get('value'), meli.get('image'), meli.get('url'))
+
+        if not id_meli:
+            return Response({'success': False, 'detail':'Parâmetros incorretos'}, status=status.HTTP_400_BAD_REQUEST)
+
+        request.data['product_meli'].update(id_meli)
+
+        serializer = NeedProductModelSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+
+            response = {'success': True, 'need': serializer.data}
+
+            return Response(response, status=status.HTTP_201_CREATED)
+        
+        return Response({'success': False, 'detail':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
 
     def get(self, request, id=None):
         if id == None:
