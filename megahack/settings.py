@@ -165,3 +165,7 @@ CORS_ALLOW_METHODS = (
 CORS_ALLOW_HEADERS = (
     '*'
 )
+
+MEDIA_URL = '/staticfiles/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static')

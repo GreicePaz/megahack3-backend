@@ -1,5 +1,5 @@
 from django.urls import path
-
+from megahack import *
 from api.views import *
 
 urlpatterns = [
@@ -15,3 +15,11 @@ urlpatterns = [
     path('search', ProductsMeli.as_view()),
     path('grantor', GrantorAPI.as_view()),   
 ]
+
+if settings.DEBUG:
+    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+    from django.conf.urls.static import static
+
+    urlpatterns += staticfiles_urlpatterns()
+    urlpatterns += static(
+        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -7,6 +7,7 @@ import json
 
 from api.models import *
 from api.utils import *
+from megahack.settings import *
 from lib.need import *
 import local
 
@@ -46,7 +47,7 @@ class OngAPI(APIView):
 		serializer = OngModelSerializer(data=request.data)
 		if serializer.is_valid():
 			serializer.save()
-			
+
 			response = {'success': True, 'ong': serializer.data}
 
 			return Response(response, status=status.HTTP_201_CREATED)
