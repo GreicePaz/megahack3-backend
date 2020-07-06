@@ -35,7 +35,7 @@ class Ong(models.Model):
     )
 
     name            = models.CharField(max_length=50)
-    logo            = models.CharField(max_length=1024, null=True)
+    logo            = models.ImageField(upload_to='staticfiles')
     cnpj            = models.CharField(max_length=20, validators=[MinLengthValidator(14)])
     cause           = models.CharField(max_length=1024, null=True)
     description     = models.TextField(null=True)
@@ -65,7 +65,7 @@ class Tag(models.Model):
 class ProductsMeli(models.Model):
     name    = models.CharField(max_length=1024, null=True)
     value   = models.DecimalField(max_digits=10, decimal_places=2)
-    image   = models.CharField(max_length=1024, null=True)
+    image   = models.TextField()
     url     = models.CharField(max_length=1024)
     class Meta:
         db_table = 'products_meli'
@@ -88,7 +88,7 @@ class NeedBill(models.Model):
     description     = models.TextField(null=True)
     expiration      = models.DateField()
     amount          = models.DecimalField(max_digits=10, decimal_places=2)
-    image_pay       = models.CharField(max_length=1024)
+    image_pay       = models.ImageField(upload_to='staticfiles')
     ong             = models.ForeignKey(Ong, on_delete=models.CASCADE)
     active          = models.BooleanField(default=True)
     date_register   = models.DateTimeField(auto_now_add=True)
